@@ -1,0 +1,5 @@
+type Foo {
+  id: ID! @unique
+  name: String
+  secretFoo: String @default(value: "i r secret")
+}

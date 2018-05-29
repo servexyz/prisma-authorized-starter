@@ -1,0 +1,8 @@
+type Query {
+  allFoos(name: String): [Foo]!
+}
+
+type Foo {
+  name: String
+  secretFoo: String
+}
