@@ -1,5 +1,7 @@
 type Query {
   allFoos(name: String): [Foo]!
+  authenticate(username: String, password: String!): String
+  isAuthorized(route: String!): Boolean
 }
 
 type Foo {

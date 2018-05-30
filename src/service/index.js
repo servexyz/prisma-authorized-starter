@@ -1,5 +1,6 @@
 const { GraphQLServer } = require("graphql-yoga");
 const { Prisma } = require("prisma-binding");
+const { authenticate, isAuthorized } = require("aws-sls-auther");
 
 //TODO: Create resolvers directory with lazy loading index / spread
 const resolvers = {
@@ -11,6 +12,15 @@ const resolvers = {
           }
         : {};
       return ctx.db.query.foos({ where }, info);
+    },
+    isAuthorized: (parent, { route }, ctx, info) => {
+      console.log(`Route: ${route}`);
+      return route;
+    },
+    authenticate: (parent, { username, password }, ctx, info) => {
+      let user = `Username: ${username}\n Password: ${password}`;
+      console.log(`user: ${user}`);
+      return user;
     }
   }
 };
