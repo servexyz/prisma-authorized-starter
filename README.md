@@ -4,8 +4,8 @@
 
 | Directory      | Description                       |
 | :------------- | :-------------------------------- |
-| src/`service`  | Our service which utilizes Prisma |
-| src/`database` | MySQL                             |
+| prisma-service/`src`  | Our service which utilizes Prisma |
+| prisma-service/`database` | MySQL                             |
 
 ### Where :: Servers
 

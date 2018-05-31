@@ -3,3 +3,10 @@ type Foo {
   name: String
   secretFoo: String @default(value: "i r secret")
 }
+
+type Route {
+  id: ID! @unique
+  type: String!
+  path: String!
+  description: String
+}

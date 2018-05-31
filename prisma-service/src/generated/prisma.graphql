@@ -1,0 +1,585 @@
+# source: http://localhost:4466
+# timestamp: Thu May 31 2018 10:18:19 GMT-0700 (PDT)
+
+type AggregateFoo {
+  count: Int!
+}
+
+type AggregateRoute {
+  count: Int!
+}
+
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+type Foo implements Node {
+  id: ID!
+  name: String
+  secretFoo: String
+}
+
+"""A connection to a list of items."""
+type FooConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [FooEdge]!
+  aggregate: AggregateFoo!
+}
+
+input FooCreateInput {
+  name: String
+  secretFoo: String
+}
+
+"""An edge in a connection."""
+type FooEdge {
+  """The item at the end of the edge."""
+  node: Foo!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum FooOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  secretFoo_ASC
+  secretFoo_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type FooPreviousValues {
+  id: ID!
+  name: String
+  secretFoo: String
+}
+
+type FooSubscriptionPayload {
+  mutation: MutationType!
+  node: Foo
+  updatedFields: [String!]
+  previousValues: FooPreviousValues
+}
+
+input FooSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FooSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FooSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FooSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: FooWhereInput
+}
+
+input FooUpdateInput {
+  name: String
+  secretFoo: String
+}
+
+input FooWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FooWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FooWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FooWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  secretFoo: String
+
+  """All values that are not equal to given value."""
+  secretFoo_not: String
+
+  """All values that are contained in given list."""
+  secretFoo_in: [String!]
+
+  """All values that are not contained in given list."""
+  secretFoo_not_in: [String!]
+
+  """All values less than the given value."""
+  secretFoo_lt: String
+
+  """All values less than or equal the given value."""
+  secretFoo_lte: String
+
+  """All values greater than the given value."""
+  secretFoo_gt: String
+
+  """All values greater than or equal the given value."""
+  secretFoo_gte: String
+
+  """All values containing the given string."""
+  secretFoo_contains: String
+
+  """All values not containing the given string."""
+  secretFoo_not_contains: String
+
+  """All values starting with the given string."""
+  secretFoo_starts_with: String
+
+  """All values not starting with the given string."""
+  secretFoo_not_starts_with: String
+
+  """All values ending with the given string."""
+  secretFoo_ends_with: String
+
+  """All values not ending with the given string."""
+  secretFoo_not_ends_with: String
+}
+
+input FooWhereUniqueInput {
+  id: ID
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Mutation {
+  createFoo(data: FooCreateInput!): Foo!
+  createRoute(data: RouteCreateInput!): Route!
+  updateFoo(data: FooUpdateInput!, where: FooWhereUniqueInput!): Foo
+  updateRoute(data: RouteUpdateInput!, where: RouteWhereUniqueInput!): Route
+  deleteFoo(where: FooWhereUniqueInput!): Foo
+  deleteRoute(where: RouteWhereUniqueInput!): Route
+  upsertFoo(where: FooWhereUniqueInput!, create: FooCreateInput!, update: FooUpdateInput!): Foo!
+  upsertRoute(where: RouteWhereUniqueInput!, create: RouteCreateInput!, update: RouteUpdateInput!): Route!
+  updateManyFoos(data: FooUpdateInput!, where: FooWhereInput): BatchPayload!
+  updateManyRoutes(data: RouteUpdateInput!, where: RouteWhereInput): BatchPayload!
+  deleteManyFoos(where: FooWhereInput): BatchPayload!
+  deleteManyRoutes(where: RouteWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Query {
+  foos(where: FooWhereInput, orderBy: FooOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Foo]!
+  routes(where: RouteWhereInput, orderBy: RouteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Route]!
+  foo(where: FooWhereUniqueInput!): Foo
+  route(where: RouteWhereUniqueInput!): Route
+  foosConnection(where: FooWhereInput, orderBy: FooOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FooConnection!
+  routesConnection(where: RouteWhereInput, orderBy: RouteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RouteConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+type Route implements Node {
+  id: ID!
+  type: String!
+  path: String!
+  description: String
+}
+
+"""A connection to a list of items."""
+type RouteConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [RouteEdge]!
+  aggregate: AggregateRoute!
+}
+
+input RouteCreateInput {
+  type: String!
+  path: String!
+  description: String
+}
+
+"""An edge in a connection."""
+type RouteEdge {
+  """The item at the end of the edge."""
+  node: Route!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum RouteOrderByInput {
+  id_ASC
+  id_DESC
+  type_ASC
+  type_DESC
+  path_ASC
+  path_DESC
+  description_ASC
+  description_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type RoutePreviousValues {
+  id: ID!
+  type: String!
+  path: String!
+  description: String
+}
+
+type RouteSubscriptionPayload {
+  mutation: MutationType!
+  node: Route
+  updatedFields: [String!]
+  previousValues: RoutePreviousValues
+}
+
+input RouteSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [RouteSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [RouteSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [RouteSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: RouteWhereInput
+}
+
+input RouteUpdateInput {
+  type: String
+  path: String
+  description: String
+}
+
+input RouteWhereInput {
+  """Logical AND on all given filters."""
+  AND: [RouteWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [RouteWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [RouteWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  type: String
+
+  """All values that are not equal to given value."""
+  type_not: String
+
+  """All values that are contained in given list."""
+  type_in: [String!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [String!]
+
+  """All values less than the given value."""
+  type_lt: String
+
+  """All values less than or equal the given value."""
+  type_lte: String
+
+  """All values greater than the given value."""
+  type_gt: String
+
+  """All values greater than or equal the given value."""
+  type_gte: String
+
+  """All values containing the given string."""
+  type_contains: String
+
+  """All values not containing the given string."""
+  type_not_contains: String
+
+  """All values starting with the given string."""
+  type_starts_with: String
+
+  """All values not starting with the given string."""
+  type_not_starts_with: String
+
+  """All values ending with the given string."""
+  type_ends_with: String
+
+  """All values not ending with the given string."""
+  type_not_ends_with: String
+  path: String
+
+  """All values that are not equal to given value."""
+  path_not: String
+
+  """All values that are contained in given list."""
+  path_in: [String!]
+
+  """All values that are not contained in given list."""
+  path_not_in: [String!]
+
+  """All values less than the given value."""
+  path_lt: String
+
+  """All values less than or equal the given value."""
+  path_lte: String
+
+  """All values greater than the given value."""
+  path_gt: String
+
+  """All values greater than or equal the given value."""
+  path_gte: String
+
+  """All values containing the given string."""
+  path_contains: String
+
+  """All values not containing the given string."""
+  path_not_contains: String
+
+  """All values starting with the given string."""
+  path_starts_with: String
+
+  """All values not starting with the given string."""
+  path_not_starts_with: String
+
+  """All values ending with the given string."""
+  path_ends_with: String
+
+  """All values not ending with the given string."""
+  path_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+}
+
+input RouteWhereUniqueInput {
+  id: ID
+}
+
+type Subscription {
+  foo(where: FooSubscriptionWhereInput): FooSubscriptionPayload
+  route(where: RouteSubscriptionWhereInput): RouteSubscriptionPayload
+}

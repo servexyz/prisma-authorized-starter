@@ -1,0 +1,26 @@
+mutation {
+  foo1: createFoo(data: { name: "The homie" }) {
+    name
+  }
+  foo2: createFoo(data: { name: "The second homie" }) {
+    name
+  }
+  foo3: createFoo(data: { name: "Some foo" }) {
+    name
+  }
+  route1: createRoute(
+    data: { type: "S3", path: "/bucket-1/fooFile", description: "MyFile" }
+  ) {
+    id
+  }
+  route2: createRoute(
+    data: { type: "S3", path: "/bucket-1/barFile", description: "MyFile" }
+  ) {
+    id
+  }
+  route3: createRoute(
+    data: { type: "S3", path: "/bucket-2/fooBarFile", description: "MyFile" }
+  ) {
+    id
+  }
+}

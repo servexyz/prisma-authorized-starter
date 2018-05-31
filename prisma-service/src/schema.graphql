@@ -1,7 +1,14 @@
 type Query {
-  allFoos(name: String): [Foo]!
+  allFoos(name: String): [Foo!]!
+  allRoutes(type: String): [Route!]!
   authenticate(username: String, password: String!): String
   isAuthorized(route: String!): Boolean
+}
+
+type Route {
+  type: String!
+  path: String!
+  description: String
 }
 
 type Foo {
