@@ -1,11 +1,15 @@
 # source: http://localhost:4466
-# timestamp: Thu May 31 2018 10:18:19 GMT-0700 (PDT)
+# timestamp: Thu May 31 2018 16:14:24 GMT-0700 (PDT)
 
 type AggregateFoo {
   count: Int!
 }
 
 type AggregateRoute {
+  count: Int!
+}
+
+type AggregateUser {
   count: Int!
 }
 
@@ -249,16 +253,22 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
+  createUser(data: UserCreateInput!): User!
   createFoo(data: FooCreateInput!): Foo!
   createRoute(data: RouteCreateInput!): Route!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateFoo(data: FooUpdateInput!, where: FooWhereUniqueInput!): Foo
   updateRoute(data: RouteUpdateInput!, where: RouteWhereUniqueInput!): Route
+  deleteUser(where: UserWhereUniqueInput!): User
   deleteFoo(where: FooWhereUniqueInput!): Foo
   deleteRoute(where: RouteWhereUniqueInput!): Route
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertFoo(where: FooWhereUniqueInput!, create: FooCreateInput!, update: FooUpdateInput!): Foo!
   upsertRoute(where: RouteWhereUniqueInput!, create: RouteCreateInput!, update: RouteUpdateInput!): Route!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyFoos(data: FooUpdateInput!, where: FooWhereInput): BatchPayload!
   updateManyRoutes(data: RouteUpdateInput!, where: RouteWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyFoos(where: FooWhereInput): BatchPayload!
   deleteManyRoutes(where: RouteWhereInput): BatchPayload!
 }
@@ -291,10 +301,13 @@ type PageInfo {
 }
 
 type Query {
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   foos(where: FooWhereInput, orderBy: FooOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Foo]!
   routes(where: RouteWhereInput, orderBy: RouteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Route]!
+  user(where: UserWhereUniqueInput!): User
   foo(where: FooWhereUniqueInput!): Foo
   route(where: RouteWhereUniqueInput!): Route
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   foosConnection(where: FooWhereInput, orderBy: FooOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FooConnection!
   routesConnection(where: RouteWhereInput, orderBy: RouteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RouteConnection!
 
@@ -580,6 +593,235 @@ input RouteWhereUniqueInput {
 }
 
 type Subscription {
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   foo(where: FooSubscriptionWhereInput): FooSubscriptionPayload
   route(where: RouteSubscriptionWhereInput): RouteSubscriptionPayload
+}
+
+type User implements Node {
+  id: ID!
+  username: String!
+  jwt: String
+}
+
+"""A connection to a list of items."""
+type UserConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
+}
+
+input UserCreateInput {
+  username: String!
+  jwt: String
+}
+
+"""An edge in a connection."""
+type UserEdge {
+  """The item at the end of the edge."""
+  node: User!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+  username_ASC
+  username_DESC
+  jwt_ASC
+  jwt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type UserPreviousValues {
+  id: ID!
+  username: String!
+  jwt: String
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+}
+
+input UserUpdateInput {
+  username: String
+  jwt: String
+}
+
+input UserWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  username: String
+
+  """All values that are not equal to given value."""
+  username_not: String
+
+  """All values that are contained in given list."""
+  username_in: [String!]
+
+  """All values that are not contained in given list."""
+  username_not_in: [String!]
+
+  """All values less than the given value."""
+  username_lt: String
+
+  """All values less than or equal the given value."""
+  username_lte: String
+
+  """All values greater than the given value."""
+  username_gt: String
+
+  """All values greater than or equal the given value."""
+  username_gte: String
+
+  """All values containing the given string."""
+  username_contains: String
+
+  """All values not containing the given string."""
+  username_not_contains: String
+
+  """All values starting with the given string."""
+  username_starts_with: String
+
+  """All values not starting with the given string."""
+  username_not_starts_with: String
+
+  """All values ending with the given string."""
+  username_ends_with: String
+
+  """All values not ending with the given string."""
+  username_not_ends_with: String
+  jwt: String
+
+  """All values that are not equal to given value."""
+  jwt_not: String
+
+  """All values that are contained in given list."""
+  jwt_in: [String!]
+
+  """All values that are not contained in given list."""
+  jwt_not_in: [String!]
+
+  """All values less than the given value."""
+  jwt_lt: String
+
+  """All values less than or equal the given value."""
+  jwt_lte: String
+
+  """All values greater than the given value."""
+  jwt_gt: String
+
+  """All values greater than or equal the given value."""
+  jwt_gte: String
+
+  """All values containing the given string."""
+  jwt_contains: String
+
+  """All values not containing the given string."""
+  jwt_not_contains: String
+
+  """All values starting with the given string."""
+  jwt_starts_with: String
+
+  """All values not starting with the given string."""
+  jwt_not_starts_with: String
+
+  """All values ending with the given string."""
+  jwt_ends_with: String
+
+  """All values not ending with the given string."""
+  jwt_not_ends_with: String
+}
+
+input UserWhereUniqueInput {
+  id: ID
 }

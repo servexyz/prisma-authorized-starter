@@ -1,0 +1,11 @@
+{
+  "presets": ["backpack-core/babel"],
+  "plugins": [
+    [
+      "babel-plugin-dotenv",
+      {
+        "replacedModuleName": "babel-dotenv"
+      }
+    ]
+  ]
+}

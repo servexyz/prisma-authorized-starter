@@ -6,6 +6,7 @@
     "dev": "npm-run-all --parallel start playground"
   },
   "dependencies": {
+    "babel-plugin-dotenv": "^0.1.1",
     "backpack-core": "^0.7.0",
     "bcryptjs": "2.4.3",
     "graphql-yoga": "1.13.1",

@@ -1,3 +1,9 @@
+type User {
+  id: ID! @unique
+  username: String!
+  jwt: String
+}
+
 type Foo {
   id: ID! @unique
   name: String

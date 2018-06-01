@@ -3,6 +3,7 @@ import { PRISMA_ENDPOINT } from "babel-dotenv";
 import { Prisma } from "prisma-binding";
 import { authenticate, isAuthorized } from "aws-sls-auther";
 
+function getUserIdFromUsername(username) {}
 //TODO: Create resolvers directory with lazy loading index / spread
 const resolvers = {
   Query: {
@@ -17,11 +18,31 @@ const resolvers = {
     allRoutes: (parent, { type }, ctx, info) => {
       const where = type ? { type_contains: type } : {};
       return ctx.db.query.routes({ where }, info);
-    },
-    authenticate: (parent, { username, password }, ctx, info) => {
-      let user = `Username: ${username}\n Password: ${password}`;
-      console.log(`user: ${user}`);
-      return { data: { user } };
+    }
+  },
+  Mutation: {
+    //First, get user/pass. Note: aws-sls-auther will need to flex b/w online & offline
+    authenticate: async (parent, { username, password }, ctx, info) => {
+      //Grab token, which we will use in mutation
+      let jwt = await authenticate(username, password);
+
+      //Define condition for querying all users with specific username
+      //Username should be unique. Assumption I'm making here is username==email
+      const whereUsername = username ? { username } : {};
+
+      //Grab id field from all users which have username (hopefully only 1)
+      let userId = await ctx.db.query.users({ where: whereUsername }, `{ id }`);
+
+      //Update the first user ID with JWT
+      //TODO: add checking here to ensure there's only one returned user ID
+      const where = { id: userId[0].id };
+      console.log(`jwt: ${jwt}`);
+
+      //Creating this variable for visual consistency. Not necessary.
+      const data = { jwt };
+
+      //Finally, we update our user with the JWT received earlier
+      return ctx.db.mutation.updateUser({ where, data }, info);
     },
     isAuthorized: (parent, { route }, ctx, info) => {
       console.log(`Route: ${route}`);
@@ -45,6 +66,7 @@ const server = new GraphQLServer({
   })
 });
 
-server.start(() =>
-  console.log(`Prisma-starter running => http://localhost:4000`)
-);
+server.start(() => {
+  process.env.AUTHER_ENDPOINT = "http://localhost:3000/api";
+  console.log(`Prisma-starter running => http://localhost:4000`);
+});

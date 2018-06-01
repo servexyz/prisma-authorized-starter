@@ -23,4 +23,7 @@ mutation {
   ) {
     id
   }
+  user1: createUser(data: { username: "alechp" }) {
+    id
+  }
 }
