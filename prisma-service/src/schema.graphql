@@ -1,11 +1,12 @@
 type Query {
   allFoos(name: String): [Foo!]!
   allRoutes(type: String): [Route!]!
+  isRouteAuthorized(routeId: ID!, userId: ID!): Boolean
+  allPublicRoutes: [Route]
 }
 
 type Mutation {
   authenticate(username: String, password: String!): User
-  isAuthorized(route: String!): Route
   #Note:
   # - Cognito manages authentication and authorization backend
   # - Email is duplicated in Prisma for relationship purposes
@@ -18,6 +19,7 @@ type User {
 type Route {
   type: String!
   path: String!
+  public: Boolean!
   description: String
 }
 

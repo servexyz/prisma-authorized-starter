@@ -3,7 +3,6 @@ import { PRISMA_ENDPOINT } from "babel-dotenv";
 import { Prisma } from "prisma-binding";
 import { authenticate, isAuthorized } from "aws-sls-auther";
 
-function getUserIdFromUsername(username) {}
 //TODO: Create resolvers directory with lazy loading index / spread
 const resolvers = {
   Query: {
@@ -18,6 +17,17 @@ const resolvers = {
     allRoutes: (parent, { type }, ctx, info) => {
       const where = type ? { type_contains: type } : {};
       return ctx.db.query.routes({ where }, info);
+    },
+    allPublicRoutes: (parent, args, ctx, info) => {
+      console.log(`hi`);
+      const where = { public_not: false };
+      return ctx.db.query.routes({ where }, info);
+    },
+    isRouteAuthorized: (parent, { routeId, userId }, ctx, info) => {
+      console.log(`Parameters: ${routeId} & ${userId}`);
+      let route = ctx.db.query.route({ where: { route: routeId } }, info);
+      console.log(route);
+      return true;
     }
   },
   Mutation: {
@@ -34,7 +44,7 @@ const resolvers = {
       let userId = await ctx.db.query.users({ where: whereUsername }, `{ id }`);
 
       //Update the first user ID with JWT
-      //TODO: add checking here to ensure there's only one returned user ID
+      //TODO: add checking here to ensure there's only one returned user IDA
       const where = { id: userId[0].id };
       console.log(`jwt: ${jwt}`);
 
@@ -43,10 +53,6 @@ const resolvers = {
 
       //Finally, we update our user with the JWT received earlier
       return ctx.db.mutation.updateUser({ where, data }, info);
-    },
-    isAuthorized: (parent, { route }, ctx, info) => {
-      console.log(`Route: ${route}`);
-      return { data: { route } };
     }
   }
 };

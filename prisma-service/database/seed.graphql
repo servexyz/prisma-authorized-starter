@@ -9,21 +9,39 @@ mutation {
     name
   }
   route1: createRoute(
-    data: { type: "S3", path: "/bucket-1/fooFile", description: "MyFile" }
+    data: {
+      type: "SLS"
+      path: "/post/authorize"
+      description: "MyFile Foo"
+      public: true
+    }
   ) {
     id
   }
   route2: createRoute(
-    data: { type: "S3", path: "/bucket-1/barFile", description: "MyFile" }
+    data: {
+      type: "S3"
+      path: "/get/public"
+      description: "MyFile Bar"
+      public: false
+    }
   ) {
     id
   }
   route3: createRoute(
-    data: { type: "S3", path: "/bucket-2/fooBarFile", description: "MyFile" }
+    data: {
+      type: "S3"
+      path: "/get/protected"
+      description: "MyFile Baz"
+      public: false
+    }
   ) {
     id
   }
   user1: createUser(data: { username: "alechp" }) {
+    id
+  }
+  user2: createUser(data: { username: "zed" }) {
     id
   }
 }

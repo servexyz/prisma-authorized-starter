@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Thu May 31 2018 16:14:24 GMT-0700 (PDT)
+# timestamp: Fri Jun 01 2018 13:09:52 GMT-0700 (PDT)
 
 type AggregateFoo {
   count: Int!
@@ -323,6 +323,7 @@ type Route implements Node {
   type: String!
   path: String!
   description: String
+  public: Boolean
 }
 
 """A connection to a list of items."""
@@ -339,6 +340,7 @@ input RouteCreateInput {
   type: String!
   path: String!
   description: String
+  public: Boolean
 }
 
 """An edge in a connection."""
@@ -359,6 +361,8 @@ enum RouteOrderByInput {
   path_DESC
   description_ASC
   description_DESC
+  public_ASC
+  public_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -370,6 +374,7 @@ type RoutePreviousValues {
   type: String!
   path: String!
   description: String
+  public: Boolean
 }
 
 type RouteSubscriptionPayload {
@@ -415,6 +420,7 @@ input RouteUpdateInput {
   type: String
   path: String
   description: String
+  public: Boolean
 }
 
 input RouteWhereInput {
@@ -586,6 +592,10 @@ input RouteWhereInput {
 
   """All values not ending with the given string."""
   description_not_ends_with: String
+  public: Boolean
+
+  """All values that are not equal to given value."""
+  public_not: Boolean
 }
 
 input RouteWhereUniqueInput {

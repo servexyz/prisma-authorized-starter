@@ -15,4 +15,5 @@ type Route {
   type: String!
   path: String!
   description: String
+  public: Boolean
 }
