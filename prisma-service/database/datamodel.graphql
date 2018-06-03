@@ -7,6 +7,8 @@ type User {
 type JWT {
   id: ID! @unique
   token: String!
+  createdAt: DateTime!
+  exp: DateTime!
 }
 
 type Foo {
