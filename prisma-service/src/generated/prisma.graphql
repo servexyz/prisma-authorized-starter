@@ -1,7 +1,11 @@
 # source: http://localhost:4466
-# timestamp: Fri Jun 01 2018 13:09:52 GMT-0700 (PDT)
+# timestamp: Sun Jun 03 2018 10:07:13 GMT-0700 (PDT)
 
 type AggregateFoo {
+  count: Int!
+}
+
+type AggregateJWT {
   count: Int!
 }
 
@@ -246,6 +250,211 @@ input FooWhereUniqueInput {
   id: ID
 }
 
+type JWT implements Node {
+  id: ID!
+  token: String!
+}
+
+"""A connection to a list of items."""
+type JWTConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [JWTEdge]!
+  aggregate: AggregateJWT!
+}
+
+input JWTCreateInput {
+  token: String!
+}
+
+input JWTCreateOneInput {
+  create: JWTCreateInput
+  connect: JWTWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type JWTEdge {
+  """The item at the end of the edge."""
+  node: JWT!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum JWTOrderByInput {
+  id_ASC
+  id_DESC
+  token_ASC
+  token_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type JWTPreviousValues {
+  id: ID!
+  token: String!
+}
+
+type JWTSubscriptionPayload {
+  mutation: MutationType!
+  node: JWT
+  updatedFields: [String!]
+  previousValues: JWTPreviousValues
+}
+
+input JWTSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [JWTSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [JWTSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [JWTSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: JWTWhereInput
+}
+
+input JWTUpdateDataInput {
+  token: String
+}
+
+input JWTUpdateInput {
+  token: String
+}
+
+input JWTUpdateOneInput {
+  create: JWTCreateInput
+  connect: JWTWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: JWTUpdateDataInput
+  upsert: JWTUpsertNestedInput
+}
+
+input JWTUpsertNestedInput {
+  update: JWTUpdateDataInput!
+  create: JWTCreateInput!
+}
+
+input JWTWhereInput {
+  """Logical AND on all given filters."""
+  AND: [JWTWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [JWTWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [JWTWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  token: String
+
+  """All values that are not equal to given value."""
+  token_not: String
+
+  """All values that are contained in given list."""
+  token_in: [String!]
+
+  """All values that are not contained in given list."""
+  token_not_in: [String!]
+
+  """All values less than the given value."""
+  token_lt: String
+
+  """All values less than or equal the given value."""
+  token_lte: String
+
+  """All values greater than the given value."""
+  token_gt: String
+
+  """All values greater than or equal the given value."""
+  token_gte: String
+
+  """All values containing the given string."""
+  token_contains: String
+
+  """All values not containing the given string."""
+  token_not_contains: String
+
+  """All values starting with the given string."""
+  token_starts_with: String
+
+  """All values not starting with the given string."""
+  token_not_starts_with: String
+
+  """All values ending with the given string."""
+  token_ends_with: String
+
+  """All values not ending with the given string."""
+  token_not_ends_with: String
+}
+
+input JWTWhereUniqueInput {
+  id: ID
+}
+
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
@@ -254,21 +463,27 @@ scalar Long
 
 type Mutation {
   createUser(data: UserCreateInput!): User!
+  createJWT(data: JWTCreateInput!): JWT!
   createFoo(data: FooCreateInput!): Foo!
   createRoute(data: RouteCreateInput!): Route!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateJWT(data: JWTUpdateInput!, where: JWTWhereUniqueInput!): JWT
   updateFoo(data: FooUpdateInput!, where: FooWhereUniqueInput!): Foo
   updateRoute(data: RouteUpdateInput!, where: RouteWhereUniqueInput!): Route
   deleteUser(where: UserWhereUniqueInput!): User
+  deleteJWT(where: JWTWhereUniqueInput!): JWT
   deleteFoo(where: FooWhereUniqueInput!): Foo
   deleteRoute(where: RouteWhereUniqueInput!): Route
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertJWT(where: JWTWhereUniqueInput!, create: JWTCreateInput!, update: JWTUpdateInput!): JWT!
   upsertFoo(where: FooWhereUniqueInput!, create: FooCreateInput!, update: FooUpdateInput!): Foo!
   upsertRoute(where: RouteWhereUniqueInput!, create: RouteCreateInput!, update: RouteUpdateInput!): Route!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManyJWTs(data: JWTUpdateInput!, where: JWTWhereInput): BatchPayload!
   updateManyFoos(data: FooUpdateInput!, where: FooWhereInput): BatchPayload!
   updateManyRoutes(data: RouteUpdateInput!, where: RouteWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyJWTs(where: JWTWhereInput): BatchPayload!
   deleteManyFoos(where: FooWhereInput): BatchPayload!
   deleteManyRoutes(where: RouteWhereInput): BatchPayload!
 }
@@ -302,12 +517,15 @@ type PageInfo {
 
 type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  jWTs(where: JWTWhereInput, orderBy: JWTOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [JWT]!
   foos(where: FooWhereInput, orderBy: FooOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Foo]!
   routes(where: RouteWhereInput, orderBy: RouteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Route]!
   user(where: UserWhereUniqueInput!): User
+  jWT(where: JWTWhereUniqueInput!): JWT
   foo(where: FooWhereUniqueInput!): Foo
   route(where: RouteWhereUniqueInput!): Route
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  jWTsConnection(where: JWTWhereInput, orderBy: JWTOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): JWTConnection!
   foosConnection(where: FooWhereInput, orderBy: FooOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FooConnection!
   routesConnection(where: RouteWhereInput, orderBy: RouteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RouteConnection!
 
@@ -604,6 +822,7 @@ input RouteWhereUniqueInput {
 
 type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  jWT(where: JWTSubscriptionWhereInput): JWTSubscriptionPayload
   foo(where: FooSubscriptionWhereInput): FooSubscriptionPayload
   route(where: RouteSubscriptionWhereInput): RouteSubscriptionPayload
 }
@@ -611,7 +830,7 @@ type Subscription {
 type User implements Node {
   id: ID!
   username: String!
-  jwt: String
+  jwt(where: JWTWhereInput): JWT
 }
 
 """A connection to a list of items."""
@@ -626,7 +845,7 @@ type UserConnection {
 
 input UserCreateInput {
   username: String!
-  jwt: String
+  jwt: JWTCreateOneInput
 }
 
 """An edge in a connection."""
@@ -643,8 +862,6 @@ enum UserOrderByInput {
   id_DESC
   username_ASC
   username_DESC
-  jwt_ASC
-  jwt_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -654,7 +871,6 @@ enum UserOrderByInput {
 type UserPreviousValues {
   id: ID!
   username: String!
-  jwt: String
 }
 
 type UserSubscriptionPayload {
@@ -698,7 +914,7 @@ input UserSubscriptionWhereInput {
 
 input UserUpdateInput {
   username: String
-  jwt: String
+  jwt: JWTUpdateOneInput
 }
 
 input UserWhereInput {
@@ -790,46 +1006,7 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   username_not_ends_with: String
-  jwt: String
-
-  """All values that are not equal to given value."""
-  jwt_not: String
-
-  """All values that are contained in given list."""
-  jwt_in: [String!]
-
-  """All values that are not contained in given list."""
-  jwt_not_in: [String!]
-
-  """All values less than the given value."""
-  jwt_lt: String
-
-  """All values less than or equal the given value."""
-  jwt_lte: String
-
-  """All values greater than the given value."""
-  jwt_gt: String
-
-  """All values greater than or equal the given value."""
-  jwt_gte: String
-
-  """All values containing the given string."""
-  jwt_contains: String
-
-  """All values not containing the given string."""
-  jwt_not_contains: String
-
-  """All values starting with the given string."""
-  jwt_starts_with: String
-
-  """All values not starting with the given string."""
-  jwt_not_starts_with: String
-
-  """All values ending with the given string."""
-  jwt_ends_with: String
-
-  """All values not ending with the given string."""
-  jwt_not_ends_with: String
+  jwt: JWTWhereInput
 }
 
 input UserWhereUniqueInput {

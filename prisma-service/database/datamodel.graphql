@@ -1,7 +1,12 @@
 type User {
   id: ID! @unique
   username: String!
-  jwt: String
+  jwt: JWT @relation(name: "UserJWT", onDelete: CASCADE)
+}
+
+type JWT {
+  id: ID! @unique
+  token: String!
 }
 
 type Foo {
