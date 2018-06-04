@@ -20,7 +20,7 @@ const resolvers = {
     },
     allPublicRoutes: (parent, args, ctx, info) => {
       console.log(`hi`);
-      const where = { public_not: false };
+      const where = { public: true };
       return ctx.db.query.routes({ where }, info);
     },
     isRouteAuthorized: (parent, { routeId, userId }, ctx, info) => {
