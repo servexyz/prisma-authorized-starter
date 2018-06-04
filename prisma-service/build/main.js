@@ -4399,15 +4399,16 @@ const resolvers = {
       return ctx.db.query.routes({ where }, info);
     },
     allPublicRoutes: (parent, args, ctx, info) => {
-      console.log(`hi`);
       const where = { public: true };
       return ctx.db.query.routes({ where }, info);
     },
-    isRouteAuthorized: (parent, { routeId, userId }, ctx, info) => {
+    isRouteAuthorized: async (parent, { routeId, userId }, ctx, info) => {
       console.log(`Parameters: ${routeId} & ${userId}`);
-      let route = ctx.db.query.route({ where: { route: routeId } }, info);
-      console.log(route);
-      return true;
+      const whereRoute = { id: routeId };
+      let route = await ctx.db.query.route({ where: whereRoute }, `{ id, path, public }`);
+      const whereUser = { id: userId };
+      let user = await ctx.db.query.user({ where: whereUser }, `{id, username, jwt}`);
+      return { data: user, route };
     }
   },
   Mutation: {

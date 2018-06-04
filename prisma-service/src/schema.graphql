@@ -2,8 +2,10 @@ type Query {
   allFoos(name: String): [Foo!]!
   allRoutes(type: String): [Route!]!
   allPublicRoutes: [Route]
-  isRouteAuthorized(routeId: ID!, userId: ID!): Boolean
+  isRouteAuthorized(routeId: ID!, userId: ID!): Json
 }
+
+scalar Json
 
 type Mutation {
   authenticate(username: String, password: String!): User
