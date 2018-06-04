@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Fri Jun 01 2018 13:09:52 GMT-0700 (PDT)
+# timestamp: Mon Jun 04 2018 16:03:47 GMT-0700 (PDT)
 
 type AggregateFoo {
   count: Int!
@@ -834,4 +834,5 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  username: String
 }

@@ -1,8 +1,8 @@
 type Query {
   allFoos(name: String): [Foo!]!
   allRoutes(type: String): [Route!]!
-  isRouteAuthorized(routeId: ID!, userId: ID!): Boolean
   allPublicRoutes: [Route]
+  isRouteAuthorized(routeId: ID!, userId: ID!): Boolean
 }
 
 type Mutation {
