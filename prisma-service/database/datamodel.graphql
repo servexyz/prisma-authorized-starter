@@ -4,12 +4,6 @@ type User {
   jwt: String
 }
 
-type Foo {
-  id: ID! @unique
-  name: String
-  secretFoo: String @default(value: "i r secret")
-}
-
 type Route {
   id: ID! @unique
   path: String!

@@ -1,9 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Mon Jun 04 2018 17:20:56 GMT-0700 (PDT)
-
-type AggregateFoo {
-  count: Int!
-}
+# timestamp: Mon Jun 04 2018 17:43:37 GMT-0700 (PDT)
 
 type AggregateRoute {
   count: Int!
@@ -18,234 +14,6 @@ type BatchPayload {
   count: Long!
 }
 
-type Foo implements Node {
-  id: ID!
-  name: String
-  secretFoo: String
-}
-
-"""A connection to a list of items."""
-type FooConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [FooEdge]!
-  aggregate: AggregateFoo!
-}
-
-input FooCreateInput {
-  name: String
-  secretFoo: String
-}
-
-"""An edge in a connection."""
-type FooEdge {
-  """The item at the end of the edge."""
-  node: Foo!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum FooOrderByInput {
-  id_ASC
-  id_DESC
-  name_ASC
-  name_DESC
-  secretFoo_ASC
-  secretFoo_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-type FooPreviousValues {
-  id: ID!
-  name: String
-  secretFoo: String
-}
-
-type FooSubscriptionPayload {
-  mutation: MutationType!
-  node: Foo
-  updatedFields: [String!]
-  previousValues: FooPreviousValues
-}
-
-input FooSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [FooSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [FooSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [FooSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: FooWhereInput
-}
-
-input FooUpdateInput {
-  name: String
-  secretFoo: String
-}
-
-input FooWhereInput {
-  """Logical AND on all given filters."""
-  AND: [FooWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [FooWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [FooWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  name: String
-
-  """All values that are not equal to given value."""
-  name_not: String
-
-  """All values that are contained in given list."""
-  name_in: [String!]
-
-  """All values that are not contained in given list."""
-  name_not_in: [String!]
-
-  """All values less than the given value."""
-  name_lt: String
-
-  """All values less than or equal the given value."""
-  name_lte: String
-
-  """All values greater than the given value."""
-  name_gt: String
-
-  """All values greater than or equal the given value."""
-  name_gte: String
-
-  """All values containing the given string."""
-  name_contains: String
-
-  """All values not containing the given string."""
-  name_not_contains: String
-
-  """All values starting with the given string."""
-  name_starts_with: String
-
-  """All values not starting with the given string."""
-  name_not_starts_with: String
-
-  """All values ending with the given string."""
-  name_ends_with: String
-
-  """All values not ending with the given string."""
-  name_not_ends_with: String
-  secretFoo: String
-
-  """All values that are not equal to given value."""
-  secretFoo_not: String
-
-  """All values that are contained in given list."""
-  secretFoo_in: [String!]
-
-  """All values that are not contained in given list."""
-  secretFoo_not_in: [String!]
-
-  """All values less than the given value."""
-  secretFoo_lt: String
-
-  """All values less than or equal the given value."""
-  secretFoo_lte: String
-
-  """All values greater than the given value."""
-  secretFoo_gt: String
-
-  """All values greater than or equal the given value."""
-  secretFoo_gte: String
-
-  """All values containing the given string."""
-  secretFoo_contains: String
-
-  """All values not containing the given string."""
-  secretFoo_not_contains: String
-
-  """All values starting with the given string."""
-  secretFoo_starts_with: String
-
-  """All values not starting with the given string."""
-  secretFoo_not_starts_with: String
-
-  """All values ending with the given string."""
-  secretFoo_ends_with: String
-
-  """All values not ending with the given string."""
-  secretFoo_not_ends_with: String
-}
-
-input FooWhereUniqueInput {
-  id: ID
-}
-
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
@@ -254,22 +22,16 @@ scalar Long
 
 type Mutation {
   createUser(data: UserCreateInput!): User!
-  createFoo(data: FooCreateInput!): Foo!
   createRoute(data: RouteCreateInput!): Route!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateFoo(data: FooUpdateInput!, where: FooWhereUniqueInput!): Foo
   updateRoute(data: RouteUpdateInput!, where: RouteWhereUniqueInput!): Route
   deleteUser(where: UserWhereUniqueInput!): User
-  deleteFoo(where: FooWhereUniqueInput!): Foo
   deleteRoute(where: RouteWhereUniqueInput!): Route
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  upsertFoo(where: FooWhereUniqueInput!, create: FooCreateInput!, update: FooUpdateInput!): Foo!
   upsertRoute(where: RouteWhereUniqueInput!, create: RouteCreateInput!, update: RouteUpdateInput!): Route!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
-  updateManyFoos(data: FooUpdateInput!, where: FooWhereInput): BatchPayload!
   updateManyRoutes(data: RouteUpdateInput!, where: RouteWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
-  deleteManyFoos(where: FooWhereInput): BatchPayload!
   deleteManyRoutes(where: RouteWhereInput): BatchPayload!
 }
 
@@ -302,13 +64,10 @@ type PageInfo {
 
 type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  foos(where: FooWhereInput, orderBy: FooOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Foo]!
   routes(where: RouteWhereInput, orderBy: RouteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Route]!
   user(where: UserWhereUniqueInput!): User
-  foo(where: FooWhereUniqueInput!): Foo
   route(where: RouteWhereUniqueInput!): Route
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  foosConnection(where: FooWhereInput, orderBy: FooOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FooConnection!
   routesConnection(where: RouteWhereInput, orderBy: RouteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RouteConnection!
 
   """Fetches an object given its ID"""
@@ -558,7 +317,6 @@ input RouteWhereUniqueInput {
 
 type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-  foo(where: FooSubscriptionWhereInput): FooSubscriptionPayload
   route(where: RouteSubscriptionWhereInput): RouteSubscriptionPayload
 }
 

@@ -1,5 +1,4 @@
 type Query {
-  allFoos(name: String): [Foo!]!
   allRoutes(type: String): [Route!]!
   allPublicRoutes: [Route]
   isJwtAuthorized(jwt: String!): Boolean
@@ -17,15 +16,11 @@ type Mutation {
 
 type User {
   username: String!
+  jwt: String
 }
 
 type Route {
   description: String
   path: String!
   public: Boolean!
-}
-
-type Foo {
-  name: String
-  secretFoo: String
 }

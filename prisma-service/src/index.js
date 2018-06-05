@@ -6,14 +6,6 @@ import { authenticate, isAuthorized } from "aws-sls-auther";
 //TODO: Create resolvers directory with lazy loading index / spread
 const resolvers = {
   Query: {
-    allFoos: (parent, { name }, ctx, info) => {
-      const where = name
-        ? {
-            name_contains: name
-          }
-        : {};
-      return ctx.db.query.foos({ where }, info);
-    },
     allRoutes: (parent, { type }, ctx, info) => {
       const where = type ? { type_contains: type } : {};
       return ctx.db.query.routes({ where }, info);

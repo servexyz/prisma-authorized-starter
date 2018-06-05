@@ -1,47 +1,35 @@
 mutation {
-  foo1: createFoo(data: { name: "The homie" }) {
-    name
-  }
-  foo2: createFoo(data: { name: "The second homie" }) {
-    name
-  }
-  foo3: createFoo(data: { name: "Some foo" }) {
-    name
-  }
-  route1: createRoute(
+  r1: createRoute(
     data: {
-      type: "SLS"
       path: "/post/authorize"
-      description: "MyFile Foo"
+      description: "Route which other private routes are validated against"
       public: true
     }
   ) {
     id
   }
-  route2: createRoute(
+  r2: createRoute(
     data: {
-      type: "S3"
       path: "/get/public"
-      description: "MyFile Bar"
-      public: false
+      description: "Hello world route"
+      public: true
     }
   ) {
     id
   }
-  route3: createRoute(
+  r3: createRoute(
     data: {
-      type: "S3"
       path: "/get/protected"
-      description: "MyFile Baz"
+      description: "Hello secret world route"
       public: false
     }
   ) {
     id
   }
-  user1: createUser(data: { username: "alechp" }) {
+  u1: createUser(data: { username: "alechp" }) {
     id
   }
-  user2: createUser(data: { username: "zed" }) {
+  u2: createUser(data: { username: "zed" }) {
     id
   }
 }
