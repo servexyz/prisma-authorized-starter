@@ -22,19 +22,10 @@ const resolvers = {
       const where = { public: true };
       return ctx.db.query.routes({ where }, info);
     },
-    isRouteAuthorized: async (parent, { routeId, userId }, ctx, info) => {
-      console.log(`Parameters: ${routeId} & ${userId}`);
-      const whereRoute = { id: routeId };
-      let route = await ctx.db.query.route(
-        { where: whereRoute },
-        `{ id, path, public }`
-      );
-      const whereUser = { id: userId };
-      let user = await ctx.db.query.user(
-        { where: whereUser },
-        `{id, username, jwt}`
-      );
-      return { data: user, route };
+    isJwtAuthorized: async (parent, { jwt }, ctx, info) => {
+      let autho = await isAuthorized(jwt);
+      console.log(autho);
+      return autho;
     }
   },
   Mutation: {

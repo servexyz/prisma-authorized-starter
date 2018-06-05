@@ -2,14 +2,15 @@ type Query {
   allFoos(name: String): [Foo!]!
   allRoutes(type: String): [Route!]!
   allPublicRoutes: [Route]
-  isRouteAuthorized(routeId: ID!, userId: ID!): Json
+  isJwtAuthorized(jwt: String!): Boolean
 }
 
 scalar Json
 
+# TODO: Add authentication refresh via JWT refresh token
 type Mutation {
   authenticate(username: String, password: String!): User
-  #Note:
+  # NOTE:
   # - Cognito manages authentication and authorization backend
   # - Email is duplicated in Prisma for relationship purposes
 }
@@ -19,10 +20,9 @@ type User {
 }
 
 type Route {
-  type: String!
+  description: String
   path: String!
   public: Boolean!
-  description: String
 }
 
 type Foo {

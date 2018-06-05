@@ -12,7 +12,6 @@ type Foo {
 
 type Route {
   id: ID! @unique
-  type: String!
   path: String!
   description: String
   public: Boolean
