@@ -47,6 +47,8 @@ const resolvers = {
   }
 };
 
+//test working copy
+
 //TODO: Replace all endpoints with env variables
 const server = new GraphQLServer({
   typeDefs: "src/schema.graphql",
