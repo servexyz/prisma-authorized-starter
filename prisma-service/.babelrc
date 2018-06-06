@@ -1,5 +1,7 @@
 {
-  "presets": ["backpack-core/babel"],
+  "presets": [
+    "@babel/preset-env"
+  ],
   "plugins": [
     [
       "babel-plugin-dotenv",
