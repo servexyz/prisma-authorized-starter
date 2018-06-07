@@ -1,5 +1,6 @@
 {
   "name": "prisma-authorized-starter",
+  "description": "Prisma. Intended to be used with AWS-SLS-Auth-Starter",
   "scripts": {
     "test": "ava-ts",
     "start": "dotenv -- nodemon -e ts,graphql -x ts-node src/index.ts",
@@ -19,8 +20,7 @@
     "@types/bcryptjs": "2.4.1",
     "ava": "^0.25.0",
     "ava-ts": "^0.24.6",
-    "dotenv": "^6.0.0",
-    "dotenv-cli": "1.4.0",
+    "dotenv-cli": "^1.4.0",
     "graphql-cli": "2.16.1",
     "nodemon": "1.17.5",
     "npm-run-all": "4.1.3",
