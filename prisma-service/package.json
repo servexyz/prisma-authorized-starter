@@ -10,7 +10,7 @@
     "build": "rimraf dist && tsc"
   },
   "dependencies": {
-    "aws-sls-auther": "^1.0.0",
+    "aws-sls-auther": "^1.1.1",
     "bcryptjs": "2.4.3",
     "graphql-yoga": "1.13.1",
     "jsonwebtoken": "8.2.1",
