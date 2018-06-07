@@ -1,28 +1,27 @@
 import { GraphQLServer } from "graphql-yoga";
-import { PRISMA_ENDPOINT } from "babel-dotenv";
 import { Prisma } from "prisma-binding";
 import { authenticate, isAuthorized } from "aws-sls-auther";
+import { Context } from "./types";
 
 //TODO: Create resolvers directory with lazy loading index / spread
 const resolvers = {
   Query: {
-    allRoutes: (parent, { type }, ctx, info) => {
+    allRoutes(parent, { type }, ctx: Context, info) {
       const where = type ? { type_contains: type } : {};
       return ctx.db.query.routes({ where }, info);
     },
-    allPublicRoutes: (parent, args, ctx, info) => {
+    allPublicRoutes(parent, args, ctx: Context, info) {
       const where = { public: true };
       return ctx.db.query.routes({ where }, info);
     },
-    isJwtAuthorized: async (parent, { jwt }, ctx, info) => {
+    async isJwtAuthorized(parent, { jwt }, ctx: Context, info) {
       let autho = await isAuthorized(jwt);
-      console.log(autho);
       return autho;
     }
   },
   Mutation: {
     //First, get user/pass. Note: aws-sls-auther will need to flex b/w online & offline
-    auth: async (parent, { username, password }, ctx, info) => {
+    async auth(parent, { username, password }, ctx: Context, info) {
       //Grab token, which we will use in mutation
       let jwt = await authenticate(username, password);
 
@@ -47,9 +46,6 @@ const resolvers = {
   }
 };
 
-//test working copy
-
-//TODO: Replace all endpoints with env variables
 const server = new GraphQLServer({
   typeDefs: "src/schema.graphql",
   resolvers,
@@ -57,7 +53,7 @@ const server = new GraphQLServer({
     ...req,
     db: new Prisma({
       typeDefs: "src/generated/prisma.graphql", // the auto-generated GraphQL schema of the Prisma API
-      endpoint: PRISMA_ENDPOINT, // the endpoint of the Prisma API
+      endpoint: process.env.PRISMA_ENDPOINT, // the endpoint of the Prisma API
       debug: true // log all GraphQL queries & mutations sent to the Prisma API
       // secret: process.env.PRISMA_SECRET // only needed if specified in `database/prisma.yml`
     })
