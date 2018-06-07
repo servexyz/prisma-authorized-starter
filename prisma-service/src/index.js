@@ -22,7 +22,7 @@ const resolvers = {
   },
   Mutation: {
     //First, get user/pass. Note: aws-sls-auther will need to flex b/w online & offline
-    authenticate: async (parent, { username, password }, ctx, info) => {
+    auth: async (parent, { username, password }, ctx, info) => {
       //Grab token, which we will use in mutation
       let jwt = await authenticate(username, password);
 

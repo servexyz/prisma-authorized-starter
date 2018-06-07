@@ -8,7 +8,7 @@ scalar Json
 
 # TODO: Add authentication refresh via JWT refresh token
 type Mutation {
-  authenticate(username: String, password: String!): User
+  auth(username: String, password: String!): User
   # NOTE:
   # - Cognito manages authentication and authorization backend
   # - Email is duplicated in Prisma for relationship purposes
