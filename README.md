@@ -24,6 +24,10 @@
 4.  `cd prisma-authorized-starter && npm start`
 5.  `cd aws-sls-auther starter && npm start`
 
+### Customize
+
+1.  Replace `aws-sls-auther` with your own custom authentication functions.
+
 ---
 
 ## What, Where, Why
@@ -49,3 +53,5 @@
 | Our Service | localhost:`4000` |
 | Prisma      | localhost:`4466` |
 | Database    | localhost:`3306` |
+
+---
