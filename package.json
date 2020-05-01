@@ -7,14 +7,17 @@
     "dev": "npm-run-all --parallel start playground",
     "debug": "dotenv -- nodemon -e ts,graphql -x ts-node --inspect src/index.ts",
     "playground": "graphql playground",
-    "build": "rimraf dist && tsc"
+    "build": "rimraf dist && tsc",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "aws-sls-auther": "^1.2.3",
     "bcryptjs": "2.4.3",
     "graphql-yoga": "1.16.9",
     "jsonwebtoken": "8.2.1",
-    "prisma-binding": "1.5.19"
+    "prisma-binding": "1.5.19",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@types/bcryptjs": "2.4.1",
@@ -28,5 +31,6 @@
     "rimraf": "2.6.2",
     "ts-node": "^6.1.1",
     "typescript": "2.9.1"
-  }
+  },
+  "snyk": true
 }
